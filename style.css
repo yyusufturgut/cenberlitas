@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  color: #ffffff;
+  background: url("img/bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll;
+  background-color: #ffffff;
+}
+
+/* Logo Bölümü */
+.logo-section {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+  backdrop-filter: none;
+}
+
+.logo-section.scrolled {
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.logo-section.shrink {
+  height: 8vh;
+}
+
+.logo-section.shrink .logo {
+  max-width: 60%;
+  transition: max-width 0.3s ease;
+}
+
+.logo {
+  max-height: 100%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+/* Menü Bölümü */
+.menu-section {
+  padding: 30px 20px;
+  min-height: 83vh;
+  padding-top: 80px 
+}
+
+/* Kategori Alanları */
+.category-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.category-box {
+  text-align: center;
+}
+
+.category-box img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.category-box img:hover {
+  transform: scale(1.05);
+}
+
+.category-box p {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.category-box a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.category-box a:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Kahvaltılıklar kutusu geniş */
+.featured-category {
+  flex: 0 0 calc(100% - 40px);
+  max-width: 500px;
+}
+
+.featured-category img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 4px solid #ffffff;
+}
+
+.featured-category p {
+  font-size: 22px;
+  margin-top: 12px;
+}

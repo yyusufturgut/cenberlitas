@@ -1,0 +1,124 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  color: #fff;
+  background: #000;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("img/bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll;
+  background-color: #ffffff;
+}
+
+/* Logo */
+.logo-section {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+  backdrop-filter: none;
+}
+
+.logo-section a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+
+.logo-section.scrolled {
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.logo-section.shrink {
+  height: 8vh;
+}
+
+.logo-section.shrink .logo {
+  max-width: 60%;
+  transition: max-width 0.3s ease;
+}
+
+.logo {
+  max-height: 100%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+/* Menü İçeriği */
+.menu-content {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.category {
+  margin-bottom: 40px;
+}
+
+.category h2 {
+  font-size: 28px;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category li {
+  font-size: 18px;
+  margin: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(255,255,255,0.3);
+  padding-bottom: 6px;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  font-size: 15px; /* Başlık boyutu */
+  margin-bottom: 10px;
+  gap: 10px; /* ikonla yazı arası boşluk */
+}
+
+.category-title .category-icon {
+  width: 36px;        /* küçük ve mobil dostu */
+  height: 36px;
+  border-radius: 50%; /* yuvarlak çerçeve */
+  object-fit: cover;  /* fotoğrafı taşırmadan doldurur */
+  flex-shrink: 0;     /* ikonun küçülmesini engeller */
+  border: 2px solid #fff; /* Çerçeve rengi ve kalınlığı */
+}
+
+/* Liste Elemanları */
+.category ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;  /* Önceki küçük boyut ayarı */
+  margin-bottom: 18px; /* ALT ALTA BOŞLUK EKLENDİ */
+}
+

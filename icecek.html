@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>İçecekler - Çemberlitaş</title>
+  <link rel="stylesheet" href="pide.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Logo -->
+  <section class="logo-section" id="logo">
+    <a href="index.html">
+        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+    </a>
+  </section>
+
+  <main class="menu-content">
+  
+    <section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/sogukicecek.jpg" alt="Soğuk İçecekler" class="category-icon">
+    Soğuk İçecekler
+  </h2>
+  <ul>
+    <li>Limonata <span>60₺</span></li>
+    <li>PEPSİ (şekerli) (330ml) <span>45₺</span></li>
+    <li>Fanta (330ml) <span>45₺</span></li>
+    <li>Ice Tea Limon (330ml) <span>45₺</span></li>
+    <li>Ice Tea Mango (330ml) <span>45₺</span></li>
+    <li>Ice Tea Şeftali (330ml) <span>45₺</span></li>
+    <li>Ice Tea Karpuzlu (330ml) <span>45₺</span></li>
+    <li>Ice Tea Ahududu (330ml) <span>45₺</span></li>
+    <li>Karışık Meyve Suyu (330ml) <span>45₺</span></li>
+    <li>Şeftali Meyve Suyu (330ml) <span>45₺</span></li>
+    <li>Vişne Meyve Suyu (330ml) <span>45₺</span></li>
+    <li>Ayran (330ml) <span>30₺</span></li>
+    <li>Ayran (175ml) <span>25₺</span></li>
+    <li>Karışık Meyve Suyu (200ml) <span>30₺</span></li>
+    <li>Şeftali Meyve Suyu (200ml) <span>30₺</span></li>
+    <li>Vişne Meyve Suyu (200ml) <span>30₺</span></li>
+    <li>Su (0,5L) <span>15₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/soda.jpg" alt="Sodalar" class="category-icon">
+    Sodalar
+  </h2>
+  <ul>
+    <li>Sırma Sade (200ml) <span>30₺</span></li>
+    <li>Sırma Limon (200ml) <span>30₺</span></li>
+    <li>Sırma Karpuz Çilek (200ml) <span>30₺</span></li>
+    <li>Sırma Elma (200ml) <span>30₺</span></li>
+    <li>Sırma Karadut (200ml) <span>30₺</span></li>
+    <li>Niğde Gazozu (250ml) <span>30₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/cay.jpg" alt="Sıcak İçecekler" class="category-icon">
+    Sıcak İçecekler
+  </h2>
+  <ul>
+    <li>Çay <span>20₺</span></li>
+    <li>Türk Kahvesi <span>50₺</span></li>
+    <li>Menengiç Kahvesi <span>50₺</span></li>
+    <li>Dibek Kahvesi <span>50₺</span></li>
+    <li>Nescafe Sade <span>50₺</span></li>
+    <li>Nescafe Sütlü Köpüklü <span>50₺</span></li>
+    <li>Nescafe İkisi Bir Arada <span>50₺</span></li>
+    <li>Nescafe Üçü Bir Arada <span>50₺</span></li>
+    <li>Sıcak Çikolata <span>50₺</span></li>
+  </ul>
+</section>
+
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    const logoSection = document.getElementById("logo");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled", "shrink");
+      } else {
+        logoSection.classList.remove("scrolled", "shrink");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Börekler - Çemberlitaş</title>
+  <link rel="stylesheet" href="borek.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Logo -->
+  <section class="logo-section" id="logo">
+    <a href="index.html">
+        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+    </a>
+  </section>
+
+  <main class="menu-content">
+  
+    <section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/borek.jpg" alt="Börek" class="category-icon">
+    Börekler
+  </h2>
+  <ul>
+    <li>Kıymalı Kol Böreği <span>100₺</span></li>
+    <li>Peynirli Kol Böreği <span>100₺</span></li>
+    <li>Ispanaklı Kol Böreği <span>100₺</span></li>
+    <li>Patatesli Kol Böreği <span>100₺</span></li>
+    <li>Sade Börek <span>90₺</span></li>
+    <li>Su Böreği <span>100₺</span></li>
+  </ul>
+</section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    const logoSection = document.getElementById("logo");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled", "shrink");
+      } else {
+        logoSection.classList.remove("scrolled", "shrink");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pideler - Çemberlitaş</title>
+  <link rel="stylesheet" href="pide.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Logo -->
+  <section class="logo-section" id="logo">
+    <a href="index.html">
+        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+    </a>
+  </section>
+
+  <main class="menu-content">
+  
+    <section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/kirpidesi.jpg" alt="Kır Pideleri" class="category-icon">
+    Kır Pideleri
+  </h2>
+  <ul>
+    <li>Kıymalı Kır <span>35₺</span></li>
+    <li>Patatesli Kır <span>35₺</span></li>
+    <li>Peynirli Kır <span>35₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/cantik.jpg" alt="Çantikler" class="category-icon">
+    Cantıkler
+  </h2>
+  <ul>
+    <li>Kuşbaşı Kaşarlı Cantık <span>80₺</span></li>
+    <li>Kıymalı Kaşarlı Cantık <span>80₺</span></li>
+    <li>Kıymalı Yumurtalı Cantık <span>80₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/pizza.jpg" alt="Mini Pizzalar" class="category-icon">
+    Mini Pizzalar
+  </h2>
+  <ul>
+    <li>Tavuklu Kaşarlı Pizza <span>80₺</span></li>
+    <li>Karışık Pizza <span>80₺</span></li>
+    <li>Sucuklu Kaşarlı Pizza <span>80₺</span></li>
+  </ul>
+</section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    const logoSection = document.getElementById("logo");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled", "shrink");
+      } else {
+        logoSection.classList.remove("scrolled", "shrink");
+      }
+    });
+  </script>
+</body>
+</html>

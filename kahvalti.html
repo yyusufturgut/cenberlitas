@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kahvaltılıklar - Çemberlitaş</title>
+  <link rel="stylesheet" href="pide.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Logo -->
+  <section class="logo-section" id="logo">
+    <a href="index.html">
+        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+    </a>
+  </section>
+
+  <main class="menu-content">
+  
+   <section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/kahvaltiliklar.jpg" alt="Kahvaltılıklar" class="category-icon">
+    Kahvaltılıklar
+  </h2>
+  <ul>
+    <li>Kahvaltı Tabağı <span>150₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/omlet.jpg" alt="Omletler" class="category-icon">
+    Omletler
+  </h2>
+  <ul>
+    <li>Tek Kişilik Omlet <span>80₺</span></li>
+    <li>İki Kişilik Omlet <span>120₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/menemen.jpg" alt="Menemenler" class="category-icon">
+    Menemenler
+  </h2>
+  <ul>
+    <li>Tek Kişilik Menemen Sade <span>120₺</span></li>
+    <li>Tek Kişilik Menemen Kaşarlı <span>150₺</span></li>
+    <li>İki Kişilik Menemen Sade <span>200₺</span></li>
+    <li>İki Kişilik Menemen Kaşarlı <span>250₺</span></li>
+  </ul>
+</section>
+
+<section class="category" data-aos="fade-up">
+  <h2 class="category-title">
+    <img src="img/tost.jpg" alt="Tostlar" class="category-icon">
+    Tostlar
+  </h2>
+  <ul>
+    <li>Kaşarlı Tost <span>80₺</span></li>
+    <li>Karışık Tost <span>100₺</span></li>
+    <li>Kavurmalı Tost <span>120₺</span></li>
+  </ul>
+</section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    const logoSection = document.getElementById("logo");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled", "shrink");
+      } else {
+        logoSection.classList.remove("scrolled", "shrink");
+      }
+    });
+  </script>
+</body>
+</html>
