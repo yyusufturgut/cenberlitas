@@ -22,18 +22,18 @@ opacity: 1;
 
 /* Logo */
 .logo-section {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 15vh;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  z-index: 9999;
-  transition: height 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
-  backdrop-filter: none; 
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 15vh;
+background: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 10px;
+z-index: 9999;
+transition: all 0.3s ease;
 }
 
 .logo-section a {
@@ -47,21 +47,22 @@ width: 100%;
 .logo-section.scrolled {
 height: 8vh;
 backdrop-filter: blur(6px);
+background-color: rgba(255, 255, 255, 0.8);
 }
 
 .logo-section.shrink {
 height: 8vh;
 }
 
-.logo {
-  max-height: 100%;
-  max-width: 80%;
-  object-fit: contain;
-  transition: max-width 0.3s ease;
-}
-
 .logo-section.shrink .logo {
 max-width: 60%;
+transition: max-width 0.3s ease;
+}
+
+.logo {
+max-height: 100%;
+max-width: 80%;
+object-fit: contain;
 }
 
 /* Menü İçeriği */
