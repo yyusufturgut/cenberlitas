@@ -12,7 +12,7 @@
   <!-- Logo -->
   <section class="logo-section" id="logo">
     <a href="index.html">
-        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+      <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
     </a>
   </section>
 
@@ -22,26 +22,31 @@
         <img src="img/borek.jpg" alt="Börek" class="category-icon">
         Börekler
       </h2>
-      <ul>
-        <li>Kıymalı Kol Böreği <span>100₺</span></li>
-        <li>Peynirli Kol Böreği <span>100₺</span></li>
-        <li>Ispanaklı Kol Böreği <span>100₺</span></li>
-        <li>Patatesli Kol Böreği <span>100₺</span></li>
-        <li>Sade Börek <span>90₺</span></li>
-        <li>Su Böreği <span>100₺</span></li>
-      </ul>
+      <ul id="borek-list"></ul>
     </section>
   </main>
 
   <script>
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 30) {
-        logoSection.classList.add("scrolled", "shrink");
-      } else {
-        logoSection.classList.remove("scrolled", "shrink");
-      }
+      logoSection.classList.toggle("scrolled", window.scrollY > 30);
     });
+
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?output=csv";
+
+    fetch(SHEET_URL)
+      .then(res => res.text())
+      .then(csv => {
+        const lines = csv.trim().split("\n");
+        lines.slice(1).forEach(line => {
+          const [urun, fiyat] = line.split(",");
+          const ul = document.getElementById("borek-list");
+          const li = document.createElement("li");
+          li.innerHTML = `${urun} <span>${fiyat}</span>`;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error("Veri alınamadı:", err));
   </script>
 </body>
 </html>
