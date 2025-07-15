@@ -45,6 +45,7 @@
   </main>
 
   <script>
+    // Logo kaydırıldığında küçülme efekti
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
@@ -54,8 +55,7 @@
       }
     });
 
-    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
-
+    // Türkçe karakterleri normalize eden fonksiyon + boşlukları kaldır
     function normalizeTurkish(text) {
       return text
         .toLowerCase()
@@ -64,11 +64,14 @@
         .replace(/ç/g, "c")
         .replace(/ü/g, "u")
         .replace(/ı/g, "i")
-        .replace(/ğ/g, "g");
+        .replace(/ğ/g, "g")
+        .replace(/\s+/g, ""); // boşlukları kaldır
     }
 
+    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+
     function fetchMenu() {
-      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
+      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime(); // cache önleyici
 
       fetch(SHEET_URL)
         .then(res => res.text())
@@ -81,9 +84,9 @@
             const kategoriKey = normalizeTurkish(kategori.trim());
 
             let ulId = "";
-            if (kategoriKey === "soguk icecekler") ulId = "soguk-icecek-list";
+            if (kategoriKey === "sogukicecekler") ulId = "soguk-icecek-list";
             else if (kategoriKey === "sodalar") ulId = "soda-list";
-            else if (kategoriKey === "sicak icecekler") ulId = "sicak-icecek-list";
+            else if (kategoriKey === "sicakicecekler") ulId = "sicak-icecek-list";
             else return;
 
             const ul = document.getElementById(ulId);
