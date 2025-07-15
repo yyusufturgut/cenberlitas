@@ -18,42 +18,8 @@
   </section>
 
   <main class="menu-content">
-  
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/kirpidesi.jpg" alt="Kır Pideleri" class="category-icon">
-    Kır Pideleri
-  </h2>
-  <ul>
-    <li>Kıymalı Kır <span>35₺</span></li>
-    <li>Patatesli Kır <span>35₺</span></li>
-    <li>Peynirli Kır <span>35₺</span></li>
-  </ul>
-</section>
-
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/cantik.jpg" alt="Çantikler" class="category-icon">
-    Cantıkler
-  </h2>
-  <ul>
-    <li>Kuşbaşı Kaşarlı Cantık <span>80₺</span></li>
-    <li>Kıymalı Kaşarlı Cantık <span>80₺</span></li>
-    <li>Kıymalı Yumurtalı Cantık <span>80₺</span></li>
-  </ul>
-</section>
-
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/pizza.jpg" alt="Mini Pizzalar" class="category-icon">
-    Mini Pizzalar
-  </h2>
-  <ul>
-    <li>Tavuklu Kaşarlı Pizza <span>80₺</span></li>
-    <li>Karışık Pizza <span>80₺</span></li>
-    <li>Sucuklu Kaşarlı Pizza <span>80₺</span></li>
-  </ul>
-</section>
+    <!-- Dinamik içerik buraya eklenecek -->
+  </main>
 
   <script>
     const logoSection = document.getElementById("logo");
@@ -64,6 +30,57 @@
         logoSection.classList.remove("scrolled", "shrink");
       }
     });
+  </script>
+
+  <script>
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=879656453&single=true&output=csv";
+
+    fetch(SHEET_URL)
+      .then(response => response.text())
+      .then(csvText => {
+        const lines = csvText.split('\n');
+        const categories = {
+          "Kır Pideleri": [],
+          "Cantıkler": [],
+          "Mini Pizzalar": []
+        };
+
+        lines.forEach(row => {
+          const [name, priceRaw] = row.split(',');
+          if (!name || !priceRaw) return;
+
+          const price = priceRaw.trim();
+          const lower = name.toLowerCase();
+
+          if (lower.includes("pidesi")) {
+            categories["Kır Pideleri"].push({ name, price });
+          } else if (lower.includes("cantık")) {
+            categories["Cantıkler"].push({ name, price });
+          } else if (lower.includes("pizza")) {
+            categories["Mini Pizzalar"].push({ name, price });
+          }
+        });
+
+        Object.entries(categories).forEach(([title, items]) => {
+          const section = document.createElement("section");
+          section.className = "category";
+
+          const heading = document.createElement("h2");
+          heading.className = "category-title";
+          heading.innerHTML = `<img src="img/${title.toLowerCase().replace(/ /g, '')}.jpg" class="category-icon" alt="${title}"> ${title}`;
+          section.appendChild(heading);
+
+          const ul = document.createElement("ul");
+          items.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = `${item.name} <span>${item.price}</span>`;
+            ul.appendChild(li);
+          });
+          section.appendChild(ul);
+
+          document.querySelector(".menu-content").appendChild(section);
+        });
+      });
   </script>
 </body>
 </html>
