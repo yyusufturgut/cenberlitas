@@ -29,6 +29,18 @@
   <script>
     const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
+    // Türkçe karakterleri normalize eden fonksiyon (poğaçalar örneğine uyumlu)
+    function normalizeTurkish(text) {
+      return text
+        .toLowerCase()
+        .replace(/ö/g, "o")
+        .replace(/ş/g, "s")
+        .replace(/ç/g, "c")
+        .replace(/ü/g, "u")
+        .replace(/ı/g, "i")
+        .replace(/ğ/g, "g");
+    }
+
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
@@ -41,7 +53,6 @@
     function fetchMenu() {
       const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
 
-      // Listeyi temizle
       const ul = document.getElementById("borek-list");
       if (ul) ul.innerHTML = "";
 
@@ -53,7 +64,8 @@
             const [kategori, urun, fiyat] = line.split(",");
             if (!kategori || !urun || !fiyat) return;
 
-            if (kategori.trim().toLowerCase() !== "borekler") return;
+            // Kategoriyi normalize edip "borekler" ile karşılaştır
+            if (normalizeTurkish(kategori.trim()) !== "borekler") return;
 
             const li = document.createElement("li");
             li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
