@@ -47,7 +47,7 @@ body {
 .menu-section {
   padding: 30px 20px;
   min-height: 83vh;
-  padding-top: 80px 
+  padding-top: 80px;
 }
 
 /* Kategori Alanları */
@@ -68,11 +68,13 @@ body {
   object-fit: cover;
   border-radius: 12px;
   border: 3px solid #ffffff;
-  transition: transform 0.3s ease;
+  /* Efekti kaldırdık */
+  /* transition: transform 0.3s ease; */
 }
 
+/* Hover efekti kaldırıldı */
 .category-box img:hover {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .category-box p {
