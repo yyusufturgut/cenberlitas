@@ -65,7 +65,8 @@
         .replace(/ü/g, "u")
         .replace(/ı/g, "i")
         .replace(/ğ/g, "g")
-        .replace(/\s+/g, ""); // boşlukları kaldır
+        .replace(/\s+/g, "") // Tüm boşlukları sil
+        .trim(); // Baştaki ve sondaki boşlukları sil
     }
 
     const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
