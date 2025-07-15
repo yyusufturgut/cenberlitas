@@ -29,7 +29,6 @@
   <script>
     const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
-    // Türkçe karakterleri normalize eden fonksiyon (poğaçalar örneğine uyumlu)
     function normalizeTurkish(text) {
       return text
         .toLowerCase()
@@ -61,10 +60,16 @@
         .then(csv => {
           const lines = csv.trim().split("\n");
           lines.slice(1).forEach(line => {
-            const [kategori, urun, fiyat] = line.split(",");
+            const columns = line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+
+            if(columns.length < 3) return;
+
+            let kategori = columns[0];
+            let urun = columns[1];
+            let fiyat = columns[2];
+
             if (!kategori || !urun || !fiyat) return;
 
-            // Kategoriyi normalize edip "borekler" ile karşılaştır
             if (normalizeTurkish(kategori.trim()) !== "borekler") return;
 
             const li = document.createElement("li");
