@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pideler - Çemberlitaş</title>
   <link rel="stylesheet" href="pide.css" />
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,72 +12,41 @@
   <!-- Logo -->
   <section class="logo-section" id="logo">
     <a href="index.html">
-        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+      <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
     </a>
   </section>
 
-  <main class="menu-content"></main>
+  <main class="menu-content">
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/pide.jpg" alt="Pideler" class="category-icon">
+        Pideler
+      </h2>
+      <ul id="pide-list"></ul>
+    </section>
+  </main>
 
   <script>
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 30) {
-        logoSection.classList.add("scrolled", "shrink");
-      } else {
-        logoSection.classList.remove("scrolled", "shrink");
-      }
+      logoSection.classList.toggle("scrolled", window.scrollY > 30);
     });
-  </script>
 
-  <script>
-    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=879656453&single=true&output=csv";
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
     fetch(SHEET_URL)
-      .then(response => response.text())
-      .then(csvText => {
-        const lines = csvText.split('\n');
-        const categories = {
-          "Kır Pideleri": [],
-          "Cantıkler": [],
-          "Mini Pizzalar": []
-        };
-
-        lines.forEach(row => {
-          const [name, priceRaw] = row.split(',');
-          if (!name || !priceRaw) return;
-
-          const price = priceRaw.trim();
-          const lower = name.toLowerCase();
-
-          if (lower.includes("pidesi")) {
-            categories["Kır Pideleri"].push({ name, price });
-          } else if (lower.includes("cantık")) {
-            categories["Cantıkler"].push({ name, price });
-          } else if (lower.includes("pizza")) {
-            categories["Mini Pizzalar"].push({ name, price });
-          }
+      .then(res => res.text())
+      .then(csv => {
+        const lines = csv.trim().split("\n");
+        lines.slice(1).forEach(line => {
+          const [urun, fiyat] = line.split(",");
+          const ul = document.getElementById("pide-list");
+          const li = document.createElement("li");
+          li.innerHTML = `${urun} <span>${fiyat}</span>`;
+          ul.appendChild(li);
         });
-
-        Object.entries(categories).forEach(([title, items]) => {
-          const section = document.createElement("section");
-          section.className = "category";
-
-          const heading = document.createElement("h2");
-          heading.className = "category-title";
-          heading.innerHTML = `<img src="img/${title.toLowerCase().replace(/ /g, '')}.jpg" class="category-icon" alt="${title}"> ${title}`;
-          section.appendChild(heading);
-
-          const ul = document.createElement("ul");
-          items.forEach(item => {
-            const li = document.createElement("li");
-            li.innerHTML = `${item.name} <span>${item.price}</span>`;
-            ul.appendChild(li);
-          });
-          section.appendChild(ul);
-
-          document.querySelector(".menu-content").appendChild(section);
-        });
-      });
+      })
+      .catch(err => console.error("Veri alınamadı:", err));
   </script>
 </body>
 </html>
