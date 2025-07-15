@@ -23,25 +23,7 @@
         <img src="img/sogukicecek.jpg" alt="Soğuk İçecekler" class="category-icon">
         Soğuk İçecekler
       </h2>
-      <ul>
-        <li>Limonata <span>60₺</span></li>
-        <li>PEPSİ (şekerli) (330ml) <span>45₺</span></li>
-        <li>Fanta (330ml) <span>45₺</span></li>
-        <li>Ice Tea Limon (330ml) <span>45₺</span></li>
-        <li>Ice Tea Mango (330ml) <span>45₺</span></li>
-        <li>Ice Tea Şeftali (330ml) <span>45₺</span></li>
-        <li>Ice Tea Karpuzlu (330ml) <span>45₺</span></li>
-        <li>Ice Tea Ahududu (330ml) <span>45₺</span></li>
-        <li>Karışık Meyve Suyu (330ml) <span>45₺</span></li>
-        <li>Şeftali Meyve Suyu (330ml) <span>45₺</span></li>
-        <li>Vişne Meyve Suyu (330ml) <span>45₺</span></li>
-        <li>Ayran (330ml) <span>30₺</span></li>
-        <li>Ayran (175ml) <span>25₺</span></li>
-        <li>Karışık Meyve Suyu (200ml) <span>30₺</span></li>
-        <li>Şeftali Meyve Suyu (200ml) <span>30₺</span></li>
-        <li>Vişne Meyve Suyu (200ml) <span>30₺</span></li>
-        <li>Su (0,5L) <span>15₺</span></li>
-      </ul>
+      <ul id="soguk-icecek-list"></ul>
     </section>
 
     <section class="category">
@@ -49,14 +31,7 @@
         <img src="img/soda.jpg" alt="Sodalar" class="category-icon">
         Sodalar
       </h2>
-      <ul>
-        <li>Sırma Sade (200ml) <span>30₺</span></li>
-        <li>Sırma Limon (200ml) <span>30₺</span></li>
-        <li>Sırma Karpuz Çilek (200ml) <span>30₺</span></li>
-        <li>Sırma Elma (200ml) <span>30₺</span></li>
-        <li>Sırma Karadut (200ml) <span>30₺</span></li>
-        <li>Niğde Gazozu (250ml) <span>30₺</span></li>
-      </ul>
+      <ul id="soda-list"></ul>
     </section>
 
     <section class="category">
@@ -64,17 +39,7 @@
         <img src="img/cay.jpg" alt="Sıcak İçecekler" class="category-icon">
         Sıcak İçecekler
       </h2>
-      <ul>
-        <li>Çay <span>20₺</span></li>
-        <li>Türk Kahvesi <span>50₺</span></li>
-        <li>Menengiç Kahvesi <span>50₺</span></li>
-        <li>Dibek Kahvesi <span>50₺</span></li>
-        <li>Nescafe Sade <span>50₺</span></li>
-        <li>Nescafe Sütlü Köpüklü <span>50₺</span></li>
-        <li>Nescafe İkisi Bir Arada <span>50₺</span></li>
-        <li>Nescafe Üçü Bir Arada <span>50₺</span></li>
-        <li>Sıcak Çikolata <span>50₺</span></li>
-      </ul>
+      <ul id="sicak-icecek-list"></ul>
     </section>
 
   </main>
@@ -88,6 +53,52 @@
         logoSection.classList.remove("scrolled", "shrink");
       }
     });
+
+    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+
+    function normalizeTurkish(text) {
+      return text
+        .toLowerCase()
+        .replace(/ö/g, "o")
+        .replace(/ş/g, "s")
+        .replace(/ç/g, "c")
+        .replace(/ü/g, "u")
+        .replace(/ı/g, "i")
+        .replace(/ğ/g, "g");
+    }
+
+    function fetchMenu() {
+      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
+
+      fetch(SHEET_URL)
+        .then(res => res.text())
+        .then(csv => {
+          const lines = csv.trim().split("\n");
+          lines.slice(1).forEach(line => {
+            const [kategori, urun, fiyat] = line.split(",");
+            if (!kategori || !urun || !fiyat) return;
+
+            const kategoriKey = normalizeTurkish(kategori.trim());
+
+            let ulId = "";
+            if (kategoriKey === "soguk icecekler") ulId = "soguk-icecek-list";
+            else if (kategoriKey === "sodalar") ulId = "soda-list";
+            else if (kategoriKey === "sicak icecekler") ulId = "sicak-icecek-list";
+            else return;
+
+            const ul = document.getElementById(ulId);
+            if (!ul) return;
+
+            const li = document.createElement("li");
+            li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
+            ul.appendChild(li);
+          });
+        })
+        .catch(err => console.error("Veri alınamadı:", err));
+    }
+
+    fetchMenu();
   </script>
+
 </body>
 </html>
