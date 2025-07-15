@@ -19,7 +19,7 @@
   <main class="menu-content">
     <section class="category">
       <h2 class="category-title">
-        <img src="img/borek.jpg" alt="Börek" class="category-icon">
+        <img src="img/borek.jpg" alt="Börekler" class="category-icon">
         Börekler
       </h2>
       <ul id="borek-list"></ul>
@@ -27,22 +27,27 @@
   </main>
 
   <script>
+    // Logo küçültme efekti
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       logoSection.classList.toggle("scrolled", window.scrollY > 30);
     });
 
-    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?output=csv";
+    // Google Sheets CSV bağlantısı
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
+    // CSV'den veri çekme
     fetch(SHEET_URL)
       .then(res => res.text())
       .then(csv => {
         const lines = csv.trim().split("\n");
         lines.slice(1).forEach(line => {
-          const [urun, fiyat] = line.split(",");
+          const [kategori, urun, fiyat] = line.split(",");
+          if (kategori.trim().toLowerCase() !== "börekler") return;
+
           const ul = document.getElementById("borek-list");
           const li = document.createElement("li");
-          li.innerHTML = `${urun} <span>${fiyat}</span>`;
+          li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
           ul.appendChild(li);
         });
       })
