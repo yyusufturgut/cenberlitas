@@ -58,38 +58,9 @@
     AOS.init();
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script>
-    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
-    fetch(SHEET_URL)
-      .then(res => res.text())
-      .then(csv => {
-        const results = Papa.parse(csv, { header: true, skipEmptyLines: true });
-        results.data.forEach(row => {
-          if (!row.Kategori || !row.Ürün || !row.Fiyat) return;
-
-          const kategoriKey = row.Kategori.trim().toLowerCase();
-
-          let ulId = "";
-          if (kategoriKey === "kahvaltılıklar") ulId = "kahvalti-list";
-          else if (kategoriKey === "omletler") ulId = "omlet-list";
-          else if (kategoriKey === "menemenler") ulId = "menemen-list";
-          else if (kategoriKey === "tostlar") ulId = "tost-list";
-          else return;
-
-          const ul = document.getElementById(ulId);
-          if (!ul) return;
-
-          const li = document.createElement("li");
-          li.innerHTML = `${row.Ürün.trim()} <span>${row.Fiyat.trim()}</span>`;
-          ul.appendChild(li);
-        });
-      })
-      .catch(err => console.error("Veri alınamadı:", err));
-  </script>
-
-  <script>
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
@@ -98,6 +69,45 @@
         logoSection.classList.remove("scrolled", "shrink");
       }
     });
+
+    function fetchMenu() {
+      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
+
+      // Liste içeriklerini temizle
+      ["kahvalti-list", "omlet-list", "menemen-list", "tost-list"].forEach(id => {
+        const ul = document.getElementById(id);
+        if (ul) ul.innerHTML = "";
+      });
+
+      fetch(SHEET_URL)
+        .then(res => res.text())
+        .then(csv => {
+          const lines = csv.trim().split("\n");
+          lines.slice(1).forEach(line => {
+            const [kategori, urun, fiyat] = line.split(",");
+            if (!kategori || !urun || !fiyat) return;
+
+            const kategoriKey = kategori.trim().toLowerCase();
+
+            let ulId = "";
+            if (kategoriKey === "kahvaltılıklar") ulId = "kahvalti-list";
+            else if (kategoriKey === "omletler") ulId = "omlet-list";
+            else if (kategoriKey === "menemenler") ulId = "menemen-list";
+            else if (kategoriKey === "tostlar") ulId = "tost-list";
+            else return;
+
+            const ul = document.getElementById(ulId);
+            if (!ul) return;
+
+            const li = document.createElement("li");
+            li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
+            ul.appendChild(li);
+          });
+        })
+        .catch(err => console.error("Veri alınamadı:", err));
+    }
+
+    fetchMenu();
   </script>
 
 </body>
