@@ -19,46 +19,44 @@
 
   <main class="menu-content">
 
-    <!-- Kahvaltılıklar -->
     <section class="category">
       <h2 class="category-title">
         <img src="img/kahvaltiliklar.jpg" alt="Kahvaltılıklar" class="category-icon">
         Kahvaltılıklar
       </h2>
-      <ul id="kahvaltiliklar-list"></ul>
+      <ul id="kahvalti-list"></ul>
     </section>
 
-    <!-- Omletler -->
     <section class="category">
       <h2 class="category-title">
         <img src="img/omlet.jpg" alt="Omletler" class="category-icon">
         Omletler
       </h2>
-      <ul id="omletler-list"></ul>
+      <ul id="omlet-list"></ul>
     </section>
 
-    <!-- Menemenler -->
     <section class="category">
       <h2 class="category-title">
         <img src="img/menemen.jpg" alt="Menemenler" class="category-icon">
         Menemenler
       </h2>
-      <ul id="menemenler-list"></ul>
+      <ul id="menemen-list"></ul>
     </section>
 
-    <!-- Tostlar -->
     <section class="category">
       <h2 class="category-title">
         <img src="img/tost.jpg" alt="Tostlar" class="category-icon">
         Tostlar
       </h2>
-      <ul id="tostlar-list"></ul>
+      <ul id="tost-list"></ul>
     </section>
 
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init();</script>
+  <script>
+    AOS.init();
+  </script>
 
   <script>
     const logoSection = document.getElementById("logo");
@@ -76,30 +74,25 @@
       .then(res => res.text())
       .then(csv => {
         const lines = csv.trim().split("\n");
-        const headers = lines[0].split(",");
-        
-        const kategoriIndex = headers.indexOf("Kategori");
-        const urunIndex = headers.indexOf("Ürün");
-        const fiyatIndex = headers.indexOf("Fiyat");
-
-        const lists = {
-          "kahvaltiliklar": document.getElementById("kahvaltiliklar-list"),
-          "omletler": document.getElementById("omletler-list"),
-          "menemenler": document.getElementById("menemenler-list"),
-          "tostlar": document.getElementById("tostlar-list")
-        };
-
         lines.slice(1).forEach(line => {
-          const cells = line.split(",");
-          const kategori = cells[kategoriIndex].trim().toLowerCase();
-          const urun = cells[urunIndex].trim();
-          const fiyat = cells[fiyatIndex].trim();
+          const [kategori, urun, fiyat] = line.split(",");
+          if (!kategori || !urun || !fiyat) return;
 
-          if (lists[kategori]) {
-            const li = document.createElement("li");
-            li.innerHTML = `${urun} <span>${fiyat}</span>`;
-            lists[kategori].appendChild(li);
-          }
+          const kategoriKey = kategori.trim().toLowerCase();
+
+          let ulId = "";
+          if (kategoriKey === "kahvaltılıklar") ulId = "kahvalti-list";
+          else if (kategoriKey === "omletler") ulId = "omlet-list";
+          else if (kategoriKey === "menemenler") ulId = "menemen-list";
+          else if (kategoriKey === "tostlar") ulId = "tost-list";
+          else return;
+
+          const ul = document.getElementById(ulId);
+          if (!ul) return;
+
+          const li = document.createElement("li");
+          li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
+          ul.appendChild(li);
         });
       })
       .catch(err => console.error("Veri alınamadı:", err));
