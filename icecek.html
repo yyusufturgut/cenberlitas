@@ -45,64 +45,69 @@
   </main>
 
   <script>
-    // Logo kaydırıldığında küçülme efekti
-    const logoSection = document.getElementById("logo");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 30) {
-        logoSection.classList.add("scrolled", "shrink");
-      } else {
-        logoSection.classList.remove("scrolled", "shrink");
-      }
-    });
-
-    // Türkçe karakterleri normalize eden fonksiyon + boşlukları kaldır
-    function normalizeTurkish(text) {
-      return text
-        .toLowerCase()
-        .replace(/ö/g, "o")
-        .replace(/ş/g, "s")
-        .replace(/ç/g, "c")
-        .replace(/ü/g, "u")
-        .replace(/ı/g, "i")
-        .replace(/ğ/g, "g")
-        .replace(/\s+/g, "") // Tüm boşlukları sil
-        .trim(); // Baştaki ve sondaki boşlukları sil
+  // Logo küçülme efekti
+  const logoSection = document.getElementById("logo");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 30) {
+      logoSection.classList.add("scrolled", "shrink");
+    } else {
+      logoSection.classList.remove("scrolled", "shrink");
     }
+  });
 
-    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+  // Türkçe karakterleri normalize eden fonksiyon + boşlukları sil
+  function normalizeTurkish(text) {
+    return text
+      .toLowerCase()
+      .replace(/ö/g, "o")
+      .replace(/ş/g, "s")
+      .replace(/ç/g, "c")
+      .replace(/ü/g, "u")
+      .replace(/ı/g, "i")
+      .replace(/ğ/g, "g")
+      .replace(/\s+/g, "") // tüm boşlukları sil
+      .trim();
+  }
 
-    function fetchMenu() {
-      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime(); // cache önleyici
+  const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
-      fetch(SHEET_URL)
-        .then(res => res.text())
-        .then(csv => {
-          const lines = csv.trim().split("\n");
-          lines.slice(1).forEach(line => {
-            const [kategori, urun, fiyat] = line.split(",");
-            if (!kategori || !urun || !fiyat) return;
+  function fetchMenu() {
+    fetch(SHEET_URL + "&t=" + new Date().getTime())
+      .then(res => res.text())
+      .then(csv => {
+        const lines = csv.trim().split("\n");
 
-            const kategoriKey = normalizeTurkish(kategori.trim());
+        lines.slice(1).forEach(line => {
+          // CSV'den düzgün ayırmak için regex kullan
+          const matches = line.match(/(?:\"([^\"]*)\")|(?:([^,]+))/g);
+          if (!matches || matches.length < 3) return;
 
-            let ulId = "";
-            if (kategoriKey === "sogukicecekler") ulId = "soguk-icecek-list";
-            else if (kategoriKey === "sodalar") ulId = "soda-list";
-            else if (kategoriKey === "sicakicecekler") ulId = "sicak-icecek-list";
-            else return;
+          const kategori = (matches[0] || "").replace(/"/g, "").trim();
+          const urun = (matches[1] || "").replace(/"/g, "").trim();
+          const fiyat = (matches[2] || "").replace(/"/g, "").trim();
 
-            const ul = document.getElementById(ulId);
-            if (!ul) return;
+          const kategoriKey = normalizeTurkish(kategori);
+          console.log("Kategori:", kategori, "=>", kategoriKey); // DEBUG
 
-            const li = document.createElement("li");
-            li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
-            ul.appendChild(li);
-          });
-        })
-        .catch(err => console.error("Veri alınamadı:", err));
-    }
+          let ulId = "";
+          if (kategoriKey === "sogukicecekler") ulId = "soguk-icecek-list";
+          else if (kategoriKey === "sodalar") ulId = "soda-list";
+          else if (kategoriKey === "sicakicecekler") ulId = "sicak-icecek-list";
+          else return;
 
-    fetchMenu();
-  </script>
+          const ul = document.getElementById(ulId);
+          if (!ul) return;
+
+          const li = document.createElement("li");
+          li.innerHTML = `${urun} <span>${fiyat}</span>`;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error("Veri alınamadı:", err));
+  }
+
+  fetchMenu();
+</script>
 
 </body>
 </html>
