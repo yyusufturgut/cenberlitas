@@ -23,13 +23,7 @@
         <img src="img/pogaca.png" alt="Poğaçalar" class="category-icon">
         Poğaçalar
       </h2>
-      <ul>
-        <li>Sade Poğaça <span>20₺</span></li>
-        <li>Peynirli Poğaça <span>20₺</span></li>
-        <li>Patatesli Poğaça <span>20₺</span></li>
-        <li>Kaşarlı Poğaça <span>20₺</span></li>
-        <li>Dereotlu Poğaça <span>20₺</span></li>
-      </ul>
+      <ul id="pogaca-list"></ul>
     </section>
 
     <section class="category" data-aos="fade-up">
@@ -37,14 +31,7 @@
         <img src="img/acma.jpg" alt="Açma Simit" class="category-icon">
         Açma & Simit
       </h2>
-      <ul>
-        <li>Simit <span>20₺</span></li>
-        <li>Kaşarlı Açma <span>20₺</span></li>
-        <li>Zeytinli Açma <span>20₺</span></li>
-        <li>Çikolatalı Açma <span>20₺</span></li>
-        <li>Peynirli Açma <span>20₺</span></li>
-        <li>Patatesli Açma <span>20₺</span></li>
-      </ul>
+      <ul id="acma-list"></ul>
     </section>
   </main>
 
@@ -61,5 +48,63 @@
       }
     });
   </script>
+
+  <script>
+    const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+
+    // Liste elemanlarını temizleyen fonksiyon
+    function clearLists() {
+      ["pogaca-list", "acma-list"].forEach(id => {
+        const ul = document.getElementById(id);
+        if (ul) ul.innerHTML = "";
+      });
+    }
+
+    // Küçük Türkçe karakter normalize fonksiyonu
+    function normalizeTurkish(text) {
+      return text
+        .toLowerCase()
+        .replace(/ö/g, "o")
+        .replace(/ş/g, "s")
+        .replace(/ç/g, "c")
+        .replace(/ü/g, "u")
+        .replace(/ı/g, "i")
+        .replace(/ğ/g, "g");
+    }
+
+    function fetchMenu() {
+      clearLists();
+
+      const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
+
+      fetch(SHEET_URL)
+        .then(res => res.text())
+        .then(csv => {
+          const lines = csv.trim().split("\n");
+          lines.slice(1).forEach(line => {
+            const [kategori, urun, fiyat] = line.split(",");
+            if (!kategori || !urun || !fiyat) return;
+
+            const kategoriNormalized = normalizeTurkish(kategori.trim());
+
+            let ulId = "";
+            if (kategoriNormalized === "pogacalar") ulId = "pogaca-list";
+            else if (kategoriNormalized === "acmalar") ulId = "acma-list";
+            else return;
+
+            const ul = document.getElementById(ulId);
+            if (!ul) return;
+
+            const li = document.createElement("li");
+            li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
+            ul.appendChild(li);
+          });
+        })
+        .catch(err => console.error("Veri alınamadı:", err));
+    }
+
+    fetchMenu();
+  </script>
+
 </body>
 </html>
