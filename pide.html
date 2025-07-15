@@ -49,10 +49,8 @@
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
         logoSection.classList.add("scrolled");
-        // logoSection.classList.add("shrink"); // kaldırıldı
       } else {
         logoSection.classList.remove("scrolled");
-        // logoSection.classList.remove("shrink"); // kaldırıldı
       }
     });
 
@@ -73,8 +71,7 @@
             const [kategori, urun, fiyat] = line.split(",");
             if (!kategori || !urun || !fiyat) return;
 
-            // Türkçe karakter problemini önlemek için ASCII uyarlaması yapalım
-            const kategoriKey = kategori.trim().toLowerCase().replace("ö","o");
+            const kategoriKey = kategori.trim().toLowerCase();
 
             let ulId = "";
             if (kategoriKey === "pideler") ulId = "pide-list";
