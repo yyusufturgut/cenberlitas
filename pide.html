@@ -57,7 +57,6 @@
     function fetchMenu() {
       const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
 
-      // Önce listeleri temizle
       ["pide-list", "cantik-list", "pizza-list"].forEach(id => {
         const ul = document.getElementById(id);
         if(ul) ul.innerHTML = "";
@@ -71,7 +70,7 @@
             const [kategori, urun, fiyat] = line.split(",");
             if (!kategori || !urun || !fiyat) return;
 
-            const kategoriKey = kategori.trim().toLowerCase();
+            const kategoriKey = kategori.trim().toLowerCase().replace("ö","o");
 
             let ulId = "";
             if (kategoriKey === "pideler") ulId = "pide-list";
@@ -92,5 +91,6 @@
 
     fetchMenu();
   </script>
+
 </body>
 </html>
