@@ -47,7 +47,13 @@
 
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
-      logoSection.classList.toggle("scrolled", window.scrollY > 30);
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled");
+        // logoSection.classList.add("shrink"); // kaldırıldı
+      } else {
+        logoSection.classList.remove("scrolled");
+        // logoSection.classList.remove("shrink"); // kaldırıldı
+      }
     });
 
     function fetchMenu() {
