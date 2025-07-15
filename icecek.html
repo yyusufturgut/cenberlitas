@@ -58,8 +58,9 @@
   // Türkçe karakterleri normalize eden fonksiyon + boşlukları sil
  function normalizeTurkish(text) {
   return text
-    .normalize("NFD") // birleşik karakterleri ayır
-    .replace(/[\u0300-\u036f]/g, "") // aksanları temizle (nokta dahil)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // birleşik karakterleri temizle
+    .replace(/i̇/g, "i")              // özel olarak birleşik 'i̇' karakterini düzelt
     .toLowerCase()
     .replace(/ö/g, "o")
     .replace(/ş/g, "s")
@@ -67,7 +68,7 @@
     .replace(/ü/g, "u")
     .replace(/ı/g, "i")
     .replace(/ğ/g, "g")
-    .replace(/\s+/g, "") // boşlukları kaldır
+    .replace(/\s+/g, "")
     .trim();
 }
 
