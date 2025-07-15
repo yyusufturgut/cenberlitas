@@ -14,7 +14,7 @@ body::before {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: url("img/bg.jpg") no-repeat center center scroll; /* fixed yerine scroll */
+  background: url("img/bg.jpg") no-repeat center center scroll;
   background-size: cover;
   z-index: -1;
   opacity: 1;
@@ -47,14 +47,13 @@ body::before {
 .logo-section.scrolled {
   backdrop-filter: blur(6px);
   background-color: rgba(255, 255, 255, 0.8);
-  /* Yükseklik ve logo boyutu sabit kaldı */
 }
 
 .logo-section .logo {
   max-height: 100%;
   max-width: 80%;
   object-fit: contain;
-  transition: none; /* küçülme efekti kaldırıldı */
+  transition: none;
 }
 
 /* Menü İçeriği */
@@ -70,17 +69,20 @@ body::before {
   margin-bottom: 40px;
 }
 
+/* Burada hem h2 hem .category-title için çizgi */
+.category h2,
 .category-title {
+  font-size: 28px;
   display: flex;
   align-items: center;
-  font-size: 25px;
   gap: 16px;
   border-bottom: 2px solid #fff;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
-.category-title .category-icon {
+.category-title .category-icon,
+.category h2 .category-icon {
   width: 77px;
   height: 77px;
   border-radius: 50%;
