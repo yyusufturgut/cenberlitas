@@ -24,12 +24,21 @@
       </h2>
       <ul id="pide-list"></ul>
     </section>
+
     <section class="category">
       <h2 class="category-title">
         <img src="img/cantik.jpg" alt="Cantikler" class="category-icon">
         Cantikler
       </h2>
-      <ul id="pide-list"></ul>
+      <ul id="cantik-list"></ul>
+    </section>
+
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/pizza.jpg" alt="Pizzalar" class="category-icon">
+        Pizzalar
+      </h2>
+      <ul id="pizza-list"></ul>
     </section>
   </main>
 
@@ -46,10 +55,20 @@
       .then(csv => {
         const lines = csv.trim().split("\n");
         lines.slice(1).forEach(line => {
-          const [urun, fiyat] = line.split(",");
-          const ul = document.getElementById("pide-list");
+          const [kategori, urun, fiyat] = line.split(",");
+          if (!kategori || !urun || !fiyat) return;
+
+          const kategoriKey = kategori.trim().toLowerCase();
+
+          let ulId = "";
+          if (kategoriKey === "pideler") ulId = "pide-list";
+          else if (kategoriKey === "cantikler") ulId = "cantik-list";
+          else if (kategoriKey === "pizzalar") ulId = "pizza-list";
+          else return;
+
+          const ul = document.getElementById(ulId);
           const li = document.createElement("li");
-          li.innerHTML = `${urun} <span>${fiyat}</span>`;
+          li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
           ul.appendChild(li);
         });
       })
