@@ -19,22 +19,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: backdrop-filter 0.3s ease, background-color 0.3s ease, height 0.3s ease;
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
   backdrop-filter: none;
 }
 
 .logo-section.scrolled {
   backdrop-filter: blur(6px);
   background-color: rgba(255, 255, 255, 0.8);
-}
-
-.logo-section.shrink {
-  height: 8vh;
-}
-
-.logo-section.shrink .logo {
-  max-width: 60%;
-  transition: max-width 0.3s ease;
 }
 
 .logo {
@@ -68,11 +59,10 @@ body {
   object-fit: cover;
   border-radius: 12px;
   border: 3px solid #ffffff;
-  /* Efekti kaldırdık */
-  /* transition: transform 0.3s ease; */
+  /* Hover efekt kaldırıldı */
+  transition: none;
 }
 
-/* Hover efekti kaldırıldı */
 .category-box img:hover {
   transform: none;
 }

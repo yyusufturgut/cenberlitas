@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Çemberlitaş Menü</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -58,15 +58,12 @@
 
   <script>
     const logoSection = document.getElementById("logo");
-    let isShrunk = false;
 
     window.addEventListener("scroll", () => {
-      if (!isShrunk && window.scrollY > 50) {
-        logoSection.classList.add("scrolled", "shrink");
-        isShrunk = true;
-      } else if (isShrunk && window.scrollY < 30) {
-        logoSection.classList.remove("scrolled", "shrink");
-        isShrunk = false;
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled");
+      } else {
+        logoSection.classList.remove("scrolled");
       }
     });
   </script>
