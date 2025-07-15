@@ -13,7 +13,7 @@
   <!-- Logo -->
   <section class="logo-section" id="logo">
     <a href="index.html">
-        <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
+      <img src="img/logo.png" alt="Çemberlitaş Logo" class="logo" />
     </a>
   </section>
 
@@ -54,11 +54,11 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-
   <script>
     AOS.init();
+  </script>
 
+  <script>
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
@@ -70,35 +70,19 @@
 
     const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
-    function normalizeKey(str) {
-      return str
-        .trim()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/ı/g, "i")
-        .replace(/ş/g, "s")
-        .replace(/ç/g, "c")
-        .replace(/ğ/g, "g")
-        .replace(/ü/g, "u")
-        .replace(/ö/g, "o");
-    }
-
     fetch(SHEET_URL)
       .then(res => res.text())
       .then(csv => {
-        const data = Papa.parse(csv, {
-          header: true,
-          skipEmptyLines: true,
-        }).data;
+        const lines = csv.trim().split("\n");
+        lines.slice(1).forEach(line => {
+          const [kategori, urun, fiyat] = line.split(",");
 
-        data.forEach(row => {
-          if (!row.kategori || !row.ürün || !row.fiyat) return;
+          if (!kategori || !urun || !fiyat) return;
 
-          const kategoriKey = normalizeKey(row.Kategori);
+          const kategoriKey = kategori.trim().toLowerCase();
 
           let ulId = "";
-          if (kategoriKey === "kahvaltiliklar") ulId = "kahvalti-list";
+          if (kategoriKey === "kahvaltılıklar") ulId = "kahvalti-list";
           else if (kategoriKey === "omletler") ulId = "omlet-list";
           else if (kategoriKey === "menemenler") ulId = "menemen-list";
           else if (kategoriKey === "tostlar") ulId = "tost-list";
@@ -108,11 +92,12 @@
           if (!ul) return;
 
           const li = document.createElement("li");
-          li.innerHTML = `${row.Ürün.trim()} <span>${row.Fiyat.trim()}</span>`;
+          li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
           ul.appendChild(li);
         });
       })
       .catch(err => console.error("Veri alınamadı:", err));
   </script>
+
 </body>
 </html>
