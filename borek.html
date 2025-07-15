@@ -31,7 +31,11 @@
 
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
-      logoSection.classList.toggle("scrolled", window.scrollY > 30);
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled");
+      } else {
+        logoSection.classList.remove("scrolled");
+      }
     });
 
     function fetchMenu() {
@@ -49,7 +53,7 @@
             const [kategori, urun, fiyat] = line.split(",");
             if (!kategori || !urun || !fiyat) return;
 
-            if (kategori.trim().toLowerCase() !== "borekler") return;  // "börekler" yerine ascii "borekler" kullan
+            if (kategori.trim().toLowerCase() !== "borekler") return;
 
             const li = document.createElement("li");
             li.innerHTML = `${urun.trim()} <span>${fiyat.trim()}</span>`;
