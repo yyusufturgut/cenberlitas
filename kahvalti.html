@@ -18,59 +18,47 @@
   </section>
 
   <main class="menu-content">
-  
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/kahvaltiliklar.jpg" alt="Kahvaltılıklar" class="category-icon">
-    Kahvaltılıklar
-  </h2>
-  <ul>
-    <li>Kahvaltı Tabağı <span>150₺</span></li>
-  </ul>
-</section>
 
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/omlet.jpg" alt="Omletler" class="category-icon">
-    Omletler
-  </h2>
-  <ul>
-    <li>Tek Kişilik Omlet <span>80₺</span></li>
-    <li>İki Kişilik Omlet <span>120₺</span></li>
-  </ul>
-</section>
+    <!-- Kahvaltılıklar -->
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/kahvaltiliklar.jpg" alt="Kahvaltılıklar" class="category-icon">
+        Kahvaltılıklar
+      </h2>
+      <ul id="kahvaltiliklar-list"></ul>
+    </section>
 
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/menemen.jpg" alt="Menemenler" class="category-icon">
-    Menemenler
-  </h2>
-  <ul>
-    <li>Tek Kişilik Menemen Sade <span>120₺</span></li>
-    <li>Tek Kişilik Menemen Kaşarlı <span>150₺</span></li>
-    <li>İki Kişilik Menemen Sade <span>200₺</span></li>
-    <li>İki Kişilik Menemen Kaşarlı <span>250₺</span></li>
-  </ul>
-</section>
+    <!-- Omletler -->
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/omlet.jpg" alt="Omletler" class="category-icon">
+        Omletler
+      </h2>
+      <ul id="omletler-list"></ul>
+    </section>
 
-<section class="category">
-  <h2 class="category-title">
-    <img src="img/tost.jpg" alt="Tostlar" class="category-icon">
-    Tostlar
-  </h2>
-  <ul>
-    <li>Kaşarlı Tost <span>80₺</span></li>
-    <li>Karışık Tost <span>100₺</span></li>
-    <li>Kavurmalı Tost <span>120₺</span></li>
-  </ul>
-</section>
+    <!-- Menemenler -->
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/menemen.jpg" alt="Menemenler" class="category-icon">
+        Menemenler
+      </h2>
+      <ul id="menemenler-list"></ul>
+    </section>
+
+    <!-- Tostlar -->
+    <section class="category">
+      <h2 class="category-title">
+        <img src="img/tost.jpg" alt="Tostlar" class="category-icon">
+        Tostlar
+      </h2>
+      <ul id="tostlar-list"></ul>
+    </section>
 
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  <script>AOS.init();</script>
 
   <script>
     const logoSection = document.getElementById("logo");
@@ -81,6 +69,40 @@
         logoSection.classList.remove("scrolled", "shrink");
       }
     });
+
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
+
+    fetch(SHEET_URL)
+      .then(res => res.text())
+      .then(csv => {
+        const lines = csv.trim().split("\n");
+        const headers = lines[0].split(",");
+        
+        const kategoriIndex = headers.indexOf("Kategori");
+        const urunIndex = headers.indexOf("Ürün");
+        const fiyatIndex = headers.indexOf("Fiyat");
+
+        const lists = {
+          "kahvaltiliklar": document.getElementById("kahvaltiliklar-list"),
+          "omletler": document.getElementById("omletler-list"),
+          "menemenler": document.getElementById("menemenler-list"),
+          "tostlar": document.getElementById("tostlar-list")
+        };
+
+        lines.slice(1).forEach(line => {
+          const cells = line.split(",");
+          const kategori = cells[kategoriIndex].trim().toLowerCase();
+          const urun = cells[urunIndex].trim();
+          const fiyat = cells[fiyatIndex].trim();
+
+          if (lists[kategori]) {
+            const li = document.createElement("li");
+            li.innerHTML = `${urun} <span>${fiyat}</span>`;
+            lists[kategori].appendChild(li);
+          }
+        });
+      })
+      .catch(err => console.error("Veri alınamadı:", err));
   </script>
 </body>
 </html>
