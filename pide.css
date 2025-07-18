@@ -3,17 +3,17 @@ html, body {
   font-family: 'Poppins', sans-serif;
   color: #fff;
   overflow-x: hidden;
-  min-height: 100dvh; /* modern full viewport */
-  background: url("img/bg.jpg") no-repeat center center scroll; /* scroll yap */
+  min-height: 100dvh;
+  background: url("img/bg.jpg") no-repeat center center scroll;
   background-size: cover;
 }
 
 .logo-section {
-  position: fixed; /* fixed yerine sticky */
-  top: 0;
+  position: fixed;
+  top: 0; left: 0;
   width: 100%;
   height: 15vh;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
