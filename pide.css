@@ -13,13 +13,20 @@ html, body {
   top: 0; left: 0;
   width: 100%;
   height: 15vh;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(6px);
+  background: #fff;  /* Blur yokken beyaz arka plan */
+  backdrop-filter: none;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   z-index: 9999;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Scroll ile blur ve şeffaflık gelir */
+.logo-section.scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
 }
 
 .logo {
@@ -33,7 +40,7 @@ html, body {
   max-width: 600px;
   margin: 0 auto;
   min-height: 85vh;
-  padding-top: 15vh; /* logo yüksekliği kadar üst padding */
+  padding-top: 18vh; /* biraz daha aşağı kaydırdım */
   position: relative;
   z-index: 1;
 }
