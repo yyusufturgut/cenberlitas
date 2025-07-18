@@ -1,28 +1,15 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: 'Poppins', sans-serif;
   color: #fff;
-  position: relative;
-  background-color: #000;
   overflow-x: hidden;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100dvh; /* Mobilde adres çubuğu kaybolunca bile tam ekran */
   background: url("img/bg.jpg") no-repeat center center fixed;
   background-size: cover;
-  z-index: -1;
-  opacity: 1;
 }
+
+/* ✅ body::before KALDIRILDI. Çünkü gereksiz ve sorun yaratıyor. */
 
 /* Logo */
 .logo-section {
@@ -31,7 +18,8 @@ body::before {
   left: 0;
   width: 100%;
   height: 15vh;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8); /* Hafif transparan arkaplan */
+  backdrop-filter: blur(6px); /* Blur efekti burada */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,12 +83,4 @@ body::before {
   object-fit: cover;
   flex-shrink: 0;
   border: 3px solid #fff;
-}
-
-.category ul li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 18px;
-  margin-bottom: 18px;
 }
