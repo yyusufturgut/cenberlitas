@@ -7,6 +7,7 @@ html, body {
   min-height: 100dvh; /* Mobilde adres çubuğu kaybolunca bile tam ekran */
   background: url("img/bg.jpg") no-repeat center center fixed;
   background-size: cover;
+  background-color: red;
 }
 
 /* ✅ body::before KALDIRILDI. Çünkü gereksiz ve sorun yaratıyor. */
