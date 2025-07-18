@@ -1,28 +1,20 @@
-body {
-  margin: 0;
-  padding: 0;
+html, body {
+  margin: 0; padding: 0;
   font-family: 'Poppins', sans-serif;
   color: #fff;
   overflow-x: hidden;
-  min-height: 100dvh; /* Mobilde adres çubuğu kaybolunca bile tam ekran */
-  background: url("img/bg.jpg") no-repeat center center fixed;
+  min-height: 100dvh; /* modern full viewport */
+  background: url("img/bg.jpg") no-repeat center center scroll; /* scroll yap */
   background-size: cover;
-  background-color: red;
-  height: 100%;
-  min-height: 100vh;
 }
 
-/* ✅ body::before KALDIRILDI. Çünkü gereksiz ve sorun yaratıyor. */
-
-/* Logo */
 .logo-section {
-  position: fixed;
+  position: sticky; /* fixed yerine sticky */
   top: 0;
-  left: 0;
   width: 100%;
   height: 15vh;
-  background: rgba(255, 255, 255, 0.8); /* Hafif transparan arkaplan */
-  backdrop-filter: blur(6px); /* Blur efekti burada */
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,11 +28,12 @@ body {
   object-fit: contain;
 }
 
-/* Menü İçeriği */
 .menu-content {
   padding: 40px 20px;
   max-width: 600px;
-  margin: 15vh auto 0 auto;
+  margin: 0 auto;
+  min-height: 85vh;
+  padding-top: 15vh; /* logo yüksekliği kadar üst padding */
   position: relative;
   z-index: 1;
 }
