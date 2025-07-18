@@ -47,11 +47,12 @@
 
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 30) {
-        logoSection.classList.add("scrolled");
-      } else {
-        logoSection.classList.remove("scrolled");
-      }
+    const logoSection = document.querySelector(".logo-section");
+    if (window.scrollY > 30) {
+    logoSection.classList.add("scrolled");
+    } else {
+    logoSection.classList.remove("scrolled");
+    }
     });
 
     function fetchMenu() {

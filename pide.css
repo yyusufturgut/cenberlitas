@@ -14,7 +14,7 @@ body::before {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: url("img/bg.jpg") no-repeat center center scroll; /* fixed yerine scroll */
+  background: url("img/bg.jpg") no-repeat center center scroll; /* Sabit efekt kaldırıldı */
   background-size: cover;
   z-index: -1;
   opacity: 1;
@@ -26,27 +26,24 @@ body::before {
   top: 0;
   left: 0;
   width: 100%;
-  height: 15vh; /* Sabit yüksekliği koru */
+  height: 15vh;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   z-index: 9999;
-  transition: all 0.3s ease;
 }
 
 .logo-section.scrolled {
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px); /* sadece blur efekti */
   background-color: rgba(255, 255, 255, 0.8);
-  height: 15vh !important; /* küçülme engellendi */
 }
 
 .logo {
-  max-height: 100% !important;
-  max-width: 80% !important;
+  max-height: 100%;
+  max-width: 80%;
   object-fit: contain;
-  transition: none !important; /* küçülme animasyonu iptal */
 }
 
 /* Menü İçeriği */
