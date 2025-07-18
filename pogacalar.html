@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Poğaçalar ve Açmalar - Çemberlitaş</title>
   <link rel="stylesheet" href="pogacalar.css" />
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,8 +16,9 @@
     </a>
   </section>
 
+  <!-- Menü İçeriği -->
   <main class="menu-content">
-    <section class="category" data-aos="fade-up">
+    <section class="category">
       <h2 class="category-title">
         <img src="img/pogaca.png" alt="Poğaçalar" class="category-icon">
         Poğaçalar
@@ -26,7 +26,7 @@
       <ul id="pogaca-list"></ul>
     </section>
 
-    <section class="category" data-aos="fade-up">
+    <section class="category">
       <h2 class="category-title">
         <img src="img/acma.jpg" alt="Açma Simit" class="category-icon">
         Açma & Simit
@@ -38,17 +38,15 @@
   <script>
     const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
- const logoSection = document.getElementById("logo");
+    const logoSection = document.getElementById("logo");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        logoSection.classList.add("scrolled");
+      } else {
+        logoSection.classList.remove("scrolled");
+      }
+    });
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 30) {
-    logoSection.classList.add("scrolled");
-  } else {
-    logoSection.classList.remove("scrolled");
-  }
-});
-
-    // Liste elemanlarını temizleyen fonksiyon
     function clearLists() {
       ["pogaca-list", "acma-list"].forEach(id => {
         const ul = document.getElementById(id);
@@ -56,7 +54,6 @@ window.addEventListener("scroll", () => {
       });
     }
 
-    // Küçük Türkçe karakter normalize fonksiyonu
     function normalizeTurkish(text) {
       return text
         .toLowerCase()
@@ -70,7 +67,6 @@ window.addEventListener("scroll", () => {
 
     function fetchMenu() {
       clearLists();
-
       const SHEET_URL = SHEET_URL_BASE + "&t=" + new Date().getTime();
 
       fetch(SHEET_URL)
@@ -82,8 +78,8 @@ window.addEventListener("scroll", () => {
             if (!kategori || !urun || !fiyat) return;
 
             const kategoriNormalized = normalizeTurkish(kategori.trim());
-
             let ulId = "";
+
             if (kategoriNormalized === "pogacalar") ulId = "pogaca-list";
             else if (kategoriNormalized === "acmalar") ulId = "acma-list";
             else return;
