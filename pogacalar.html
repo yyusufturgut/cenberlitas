@@ -17,7 +17,6 @@
     </a>
   </section>
 
-  <!-- Menü İçeriği -->
   <main class="menu-content">
     <section class="category" data-aos="fade-up">
       <h2 class="category-title">
@@ -43,9 +42,9 @@
     const logoSection = document.getElementById("logo");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) {
-        logoSection.classList.add("scrolled");
+        logoSection.classList.add("scrolled", "shrink");
       } else {
-        logoSection.classList.remove("scrolled");
+        logoSection.classList.remove("scrolled", "shrink");
       }
     });
   </script>
@@ -53,6 +52,7 @@
   <script>
     const SHEET_URL_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSH6girQJJEyYa_Dovq8pG_i2GRrfBGhJbRVCXvvjjXYMDV7A9PnmjnWeO9ACjMT9rViweHhx6bMhmW/pub?gid=1672418877&single=true&output=csv";
 
+    // Liste elemanlarını temizleyen fonksiyon
     function clearLists() {
       ["pogaca-list", "acma-list"].forEach(id => {
         const ul = document.getElementById(id);
@@ -60,6 +60,7 @@
       });
     }
 
+    // Küçük Türkçe karakter normalize fonksiyonu
     function normalizeTurkish(text) {
       return text
         .toLowerCase()
