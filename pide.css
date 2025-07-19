@@ -33,12 +33,23 @@ html, body {
   transform: scale(0.7); /* logoyu da küçült */
 }
 
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.logo-section.scrolled .logo-wrapper {
+  transform: scale(0.7);
+}
+
 .logo {
   max-height: 100%;
   max-width: 80%;
   object-fit: contain;
   transition: transform 0.3s ease;
-  transform-origin: center;
 }
 
 .menu-content {
