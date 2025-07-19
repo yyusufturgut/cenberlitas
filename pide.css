@@ -13,25 +13,31 @@ html, body {
   top: 0; left: 0;
   width: 100%;
   height: 15vh;
-  background: rgba(255, 255, 255, 1); /* Kesin beyaz */
+  background: rgba(255, 255, 255, 1); 
   backdrop-filter: none;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   z-index: 9999;
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, height 0.3s ease;;
 }
 
 .logo-section.scrolled {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
+  height: 9vh; /* çerçeveyi küçülttük */
+}
+
+.logo-section.scrolled .logo {
+  transform: scale(0.7); /* logoyu da küçült */
 }
 
 .logo {
   max-height: 100%;
   max-width: 80%;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
 .menu-content {
