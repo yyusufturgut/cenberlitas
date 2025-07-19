@@ -30,7 +30,7 @@ html, body {
 }
 
 .logo-section.scrolled .logo {
-  transform: scale(0.7); /* logoyu da küçült */
+  transform: scale(1.3); /* logoyu da küçült */
 }
 
 .logo-wrapper {
