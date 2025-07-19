@@ -38,6 +38,7 @@ html, body {
   max-width: 80%;
   object-fit: contain;
   transition: transform 0.3s ease;
+  transform-origin: center;
 }
 
 .menu-content {
